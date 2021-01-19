@@ -1,0 +1,27 @@
+server:
+  port: 80
+spring:
+  datasource:  #配置连接数据库的信息
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost/cloud2020?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: org.gjt.mm.mysql.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+eureka:
+  client: #客户端注册进eureka服务列表内
+    register-with-eureka: true #表示是否将自己注册进eurekaServer默认为true
+    fetch-registry: true #是否从EurekaServer抓取已有的注册信息，默认为true 单节点无所谓，集群必须为true才能配合ribbon使用负载均衡
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+feign:
+  client:
+    config:
+      default:
+        readTimeout: 5000
+        connectTimeout: 5000
+ribbon: #设置Feign客户端调用超时时间
+  ReadTimeOut: 5000 #指的是建立连接所需要的的时间
+  ConnectTimeOut: 5000 #指的是建立连接之后，服务器读取资源需要的时间
+logging:
+  level:
+    com.yousian.service.PaymentFeignService: debug
